@@ -1,2 +1,54 @@
 # dsb_capstone
+# Vignette Sales and Vessel Revenue Analysis (Capstone Project)
+
+## Project Overview (Data Question)
+The primary question this project aims to answer is: **How do monthly revenues and the volume of sold vignettes trend over the years, and in what ways do vessel characteristics (such as length) impact spending?** The objective is to identify seasonal trends using historical data and prepare a clean dataset that machine learning models can utilize to forecast future revenues and optimize supply logistics (vignette inventory).
+
+## Data Source
+The data originates from internal Excel logs tracking issued vessel vignettes over a 5-year period (`Baza podataka 5 godina.xlsx`). The dataset contains detailed transaction-level information, including unique vignette serial numbers, vessel names and registration IDs, physical attributes (length), vessel purpose, validity periods, the specific branch office that issued the document, and financial metrics (prices with and without tax).
+
+## Problem Statement
+In its raw format, the dataset is unorganized and optimized for manual entry, containing empty rows, aggregate "Total" rows at the bottom of sheets, and inconsistent date formats. **The core challenge is transforming raw, individual transaction records into structured monthly aggregates grouped by branch offices.** Without this data cleaning and transformation, machine learning algorithms cannot accurately predict monthly revenues or effectively optimize vignette inventory for the year.
+
+## Potential Data Issues & Challenges
+During the initial analysis, the following challenges were identified:
+* **Missing Data:** Certain rows lack critical information, such as the issuing branch office (`Izdata od`), vessel registration mark, or vignette duration, which could skew the analysis if not handled properly.
+* **SettingWithCopyWarning:** A technical Python warning occurs when extracting new features from the date columns, requiring precise indexing to guarantee that dataframe modifications are correctly applied.
+* **Summary and Empty Rows:** Manually entered "total" summary rows within the Excel sheets introduce noise and artificially inflate data distributions in statistical summaries like `df.describe()`.
+
+## Step-by-Step EDA Progress (What Has Been Done So Far)
+During the Exploratory Data Analysis (EDA) phase, the following data preparation steps have been successfully completed:
+
+* **Loading and Initial Inspection:** The data was imported into a Pandas DataFrame. Using `df.head(10)`, `df.shape`, and `df.info()`, the initial dataset size was determined to be 26,764 rows and 14 columns, along with their respective data types.
+* **Missing Value Detection:** Running `df.isnull().sum()` successfully identified and located the exact count of missing values per column (e.g., 79 missing vessel registration IDs).
+* **Dataset Cleaning:** Unusable rows lacking crucial information—such as the issuing branch office or price—were filtered out, preventing empty data records from corrupting future machine learning models.
+* **Date Transformation:** The textual column 'Važi od' (Valid from) was converted into a datetime format (`pd.to_datetime`), allowing for the successful extraction of separate **Year** and **Month** features.
+* **Data Aggregation:** The dataset was grouped (`groupby`) by branch office, year, and month. Total revenue, total vignettes issued, and the average vessel length were computed for each monthly interval.
+* **Exporting Cleaned Data:** The transformed and aggregated dataset (consisting of 1,667 cleaned monthly records) was exported into a brand new, tidy Excel file (`vignette_inventory_and_revenue.xlsx`), omitting redundant index columns.
+
+## Technologies and Libraries Used
+The project is built within a **Jupyter Notebook / Python 3** environment using the following packages:
+* **Pandas & NumPy** - For data loading, cleaning, feature engineering, and aggregation.
+* **Matplotlib & Seaborn** - For visual exploratory analysis, discovering seasonal trends, and tracking data distributions.
+* **Scikit-learn** - Imported and prepared for the upcoming machine learning phase (utilizing models like *Logistic Regression*, *K-Neighbors Classifier*, and evaluation tools like *train_test_split* and *cross_val_score*).
+
+## How to Run the Project
+To run this notebook locally on your machine, follow these steps:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com
+   cd dsb_capstone
+   ```
+2. **Install Required Dependencies:**
+   Ensure you have Python installed, then run the following command in your terminal:
+   ```bash
+   pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
+   ```
+3. **Launch the Jupyter Notebook:**
+   Place the source file `Baza podataka 5 godina.xlsx` into the project directory (or the designated `Content` folder) and open the notebook:
+   ```bash
+   jupyter notebook JelenaVasic_capstone.ipynb
+   ```
+   Run the code cells sequentially from top to bottom to execute the data pipeline and generate the cleaned output file `vignette_inventory_and_revenue.xlsx`.
 
