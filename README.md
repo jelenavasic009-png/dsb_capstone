@@ -1,6 +1,8 @@
 # 🚢 Vignette Sales and Vessel Revenue Analysis (`dsb_capstone`)
 
-> **Data Science Capstone Project** | Exploratory Data Analysis, Feature Engineering & Revenue Trends
+> **Data Science Capstone Project**
+> 
+> | Exploratory Data Analysis, Feature Engineering & Revenue Trends
 
 [![Python 3.x](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
 [![Pandas](https://img.shields.io/badge/Library-Pandas-orange.svg)](https://pandas.pydata.org/)
@@ -78,7 +80,9 @@ The project is built within a **Python 3** environment using the following core 
 
 # 🚢 Analiza prodaje vinjeta i prihoda plovila (`dsb_capstone`)
 
-> **Data Science Capstone projekat** | Exploratory Data Analysis, Feature Engineering & Trendovi prihoda
+> **Data Science Capstone projekat**
+>
+> | Exploratory Data Analysis, Feature Engineering & Trendovi prihoda
 
 [![Python 3.x](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
 [![Pandas](https://img.shields.io/badge/Library-Pandas-orange.svg)](https://pandas.pydata.org/)
