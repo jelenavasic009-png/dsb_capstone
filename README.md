@@ -1,57 +1,61 @@
-⚓ DSB_capstone project
+# 🚢 Vignette Sales and Vessel Revenue Analysis (`dsb_capstone`)
 
-📊 Vignette Sales and Vessel Revenue Analysis (Capstone Project)
+> **Data Science Capstone Project** | Exploratory Data Analysis, Feature Engineering & Revenue Trends
 
-🎯 Project Overview (Data Question)
-The primary question this project aims to answer is: How do monthly revenues and the volume of sold vignettes trend over the years, and in what ways do vessel characteristics (such as length) impact spending? The objective is to identify seasonal trends using historical data and perform an in-depth Exploratory Data Analysis (EDA) along with robust Feature Engineering to prepare the dataset for future predictive modeling.
+[![Python 3.x](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![Pandas](https://img.shields.io/badge/Library-Pandas-orange.svg)](https://pandas.pydata.org/)
+[![Status](https://img.shields.io/badge/Status-Completed%20%2F%20Active-success.svg)]()
 
-📁 Data Source
-The data originates from internal Excel logs tracking issued vessel vignettes over a 5-year period (Baza podataka 5 godina.xlsx). The dataset contains detailed transaction-level information, including unique vignette serial numbers, vessel names and registration IDs, physical attributes (length), vessel purpose, validity periods, the specific branch office that issued the document (Issued by), and financial metrics (prices with and without tax).
+---
 
-⚠️ Problem Statement
-In its raw format, the dataset is unorganized and optimized for manual entry, containing empty rows, aggregate "Total" rows at the bottom of sheets, and inconsistent date formats. The core challenge is transforming raw, individual transaction records into structured, clean data through systematic cleaning, exploratory analysis, and advanced feature engineering. Without this preprocessing, insights and downstream machine learning algorithms cannot accurately interpret temporal trends or regional performance.
+## 📌 Project Overview
+The primary objective of this project is to answer a core business question: **How do monthly revenues and the volume of sold vignettes trend over the years, and in what ways do vessel characteristics (such as length) impact financial outcomes?**
 
-🔍 Potential Data Issues & Challenges
-During the initial inspection, the following challenges were identified and addressed:
+By leveraging historical transactional logs (`Baza podataka 5 godina.xlsx`), this project conducts a thorough **Exploratory Data Analysis (EDA)** alongside robust **Feature Engineering** to transform raw operational data into structured, actionable insights for future predictive forecasting models[cite: 2].
 
-Missing Data: Certain rows lack critical information, such as vessel names or registration marks (e.g., 79 missing vessel IDs), which could skew the analysis if not properly handled.
+---
 
-Summary and Empty Rows: Manually entered summary rows at the bottom of spreadsheets introduce noise and artificially inflate statistical summaries.
+## 📂 Data Source & Structure
+* **Source Dataset:** Internal Excel logs tracking issued vessel vignettes over a 5-year period[cite: 2].
+* **Initial Dimensions:** 26,764 rows and 12 initial columns[cite: 2].
+* **Key Attributes:** Unique vignette serial numbers, vessel names, registration IDs, physical attributes (vessel length), validity periods, regional branch offices issuing documents, and financial metrics (with and without tax)[cite: 2].
 
-Date Formats: Raw date fields start as plain text strings (object data types) and require formal conversion into pandas datetime objects for chronological tracking.
+---
 
-🛠️ Step-by-Step EDA & Feature Engineering Progress
-The project notebook (JelenaVasic_capstone.ipynb) follows a rigorous, beginner-friendly pipeline divided into clear steps:
+## ⚠️ Data Quality & Challenges
+Initial data auditing revealed several structural obstacles that required systematic cleaning:
+* **Missing Data:** Certain rows lacked critical details, such as vessel names or registration marks (~79 missing vessel IDs), requiring careful imputation[cite: 2].
+* **Manual Entry Flaws:** Empty rows at the bottom of spreadsheets and automatically generated summary rows introduced noise that needed removal[cite: 2].
+* **Date Formatting:** Raw date entries started as plain text strings (`object` data type) and were converted into proper `pandas datetime` objects for accurate chronological tracking[cite: 2].
 
-Step 1: Data Sourcing & Initial Loading – Imported the raw Excel file into a pandas DataFrame (df.read_excel) and inspected structural dimensions (26,764 rows and 12 initial columns) using df.head(10) and df.shape.
+---
 
-Step 2: Structural Audit & Descriptive Statistics – Evaluated column types using df.info() and calculated baseline statistics (mean, min, max, percentiles) for numerical features like vessel length and total price using df.describe().
+## 🔄 Step-by-Step EDA & Feature Engineering Pipeline
+The analysis is structured sequentially within the Jupyter/Colab notebook (`JelenaVasic_capstone.ipynb`)[cite: 1, 2]:
 
-Step 3: Data Cleansing & Missing Value Handling – Identified null values via df.isnull().sum() and filtered out unusable rows lacking critical identifiers to protect data integrity.
+1. **Data Sourcing & Initial Loading:** Imported raw Excel files into a Pandas DataFrame and verified structural dimensions (`26,764 rows`, `12 columns`)[cite: 2].
+2. **Structural Audit & Descriptive Statistics:** Evaluated column types via `info()` and calculated baseline descriptive statistics (mean, min, max, percentiles) using `describe()`[cite: 2].
+3. **Data Cleansing:** Identified null values via `isnull().sum()` and filtered out unusable rows lacking critical identifiers to safeguard data integrity[cite: 2].
+4. **Categorical Grouping & Business Insights:** Analyzed transaction volumes and gross revenue generation across regional branch offices (such as Tivat, Zelenika, and Bar) using `value_counts()` and `groupby()`[cite: 2].
+5. **Datetime Normalization & Temporal Decomposition:** Converted textual dates into formal `datetime64` objects to extract dedicated `Year` and `Month` features for year-over-year and seasonal trend analysis[cite: 2].
+6. **Data Visualization:** Generated visual analytical reports using Matplotlib and Seaborn, including office distribution counts, vessel length histograms, and seasonal revenue trend line charts[cite: 1, 2].
+7. **Advanced Feature Engineering:** 
+   * *Data Imputation:* Filled missing vessel names with 'Unknown Vessel' and missing lengths with the median value[cite: 2].
+   * *Categorization:* Classified vignettes into distinct price tiers (`Low Price`, `Medium Price`, `High Price`)[cite: 2].
+   * *Time Series Metrics:* Calculated time gaps (`diff`) between consecutive transactions to capture temporal momentum[cite: 2].
+   * *Dimensionality Reduction:* Applied `StandardScaler` and Principal Component Analysis (`PCA`) to project numerical vessel and pricing attributes into principal components (`PCA1`, `PCA2`)[cite: 2].
+8. **Predictive Modeling (Introductory Preview):** Implemented a foundational Linear Regression model grouped by year and office location to establish a baseline for future inventory demand forecasting[cite: 2].
 
-Step 4: Categorical Grouping & Business Insights – Analyzed transaction volumes and gross revenue generation across regional branch offices (such as Tivat, Zelenika, and Bar) using value_counts() and groupby().
+---
 
-Step 5: Datetime Normalization & Temporal Decomposition – Converted textual dates into formal datetime64 objects and extracted dedicated Year and Month features for year-over-year and seasonal analysis.
+## 🛠️ Technologies & Libraries Used
+The project is built within a **Python 3** environment using the following core packages[cite: 2]:
 
-Step 6: Data Visualization – Generated visual reports using matplotlib and seaborn (including count plots for office distribution, distribution histograms for vessel lengths, and line charts for seasonal revenue trends across years).
+| Library | Primary Purpose |
+| :--- | :--- |
+| **Pandas & NumPy** | Data loading, cleaning, feature engineering, and aggregation[cite: 2]. |
+| **Matplotlib & Seaborn** | Visual exploratory analysis, discovering seasonal trends, and tracking data distributions[cite: 1, 2]. |
+| **Scikit-learn** | Preprocessing (`StandardScaler`), feature transformation (`PCA`), and introductory predictive modeling (`Linear Regression`)[cite: 2]. |
 
-Step 7: Advanced Feature Engineering – Enhanced the dataset with structural transformations:
-
-Data Imputation: Filled missing vessel names with 'Unknown Vessel' and missing lengths with the median value.
-
-Categorizations: Classified vignettes into price tiers (Low Price, Medium Price, High Price).
-
-Time Series Metrics: Calculated time gaps (diff) between consecutive transactions to capture temporal momentum.
-
-Dimensionality Reduction: Applied StandardScaler and Principal Component Analysis (PCA) to project numerical vessel and pricing attributes into principal components (PCA1, PCA2).
-
-Step 8: Predictive Modeling (Introductory Preview) – Implemented a foundational Linear Regression model grouped by year and office location to project future vignette inventory demand.
-
-💻 Technologies and Libraries Used
-The project is built within a Jupyter Notebook / Python 3 environment using the following packages:
-
-Pandas & NumPy - For data loading, cleaning, feature engineering, and aggregation.
-
-Matplotlib & Seaborn - For visual exploratory analysis, discovering seasonal trends, and tracking data distributions.
-
-Scikit-learn - Utilized for preprocessing (StandardScaler), feature transformation (PCA), and introductory predictive modeling (LinearRegression).
+---
+*For a detailed walkthrough of the code and implementation details, please refer to the [JelenaVasic_capstone.ipynb](https://github.com/jelenavasic009-png/DSB-Unit-02/tree/main) notebook.*
