@@ -6,12 +6,13 @@
 [![Pandas](https://img.shields.io/badge/Library-Pandas-orange.svg)](https://pandas.pydata.org/)
 [![Scikit-Learn](https://img.shields.io/badge/ML-Scikit--Learn-F7931E.svg)](https://scikit-learn.org/)
 [![Prophet](https://img.shields.io/badge/Forecasting-Prophet-008080.svg)](https://facebook.github.io/prophet/)
+[![Plotly](https://img.shields.io/badge/Visualization-Plotly-3F4F75.svg)](https://plotly.com/python/)
 [![Status](https://img.shields.io/badge/Status-Completed-success.svg)]()
 
 ---
 
 ## 📌 Project Overview
-The primary objective of this Capstone project is to analyze five years of maritime vignette issuance records (`Baza podataka 5 godina.xlsx`) to answer three core operational and financial questions:
+The primary objective of this Capstone project is to analyze five years (2021–2025) of maritime vignette issuance records (`Baza podataka 5 godina.xlsx`) to answer three core operational and financial questions:
 1. **What are the primary drivers behind individual vignette pricing and total port revenue?**
 2. **How do seasonal demand patterns and customer loyalty evolve across regional branch offices?**
 3. **Can machine learning models accurately forecast future monthly revenue, predict vignette pricing, and isolate high-value vessel anomalies?**
@@ -30,15 +31,25 @@ dsb_capstone/
 │   └── 01_EDA_JelenaVasic_capstone.ipynb    # Complete end-to-end analysis, visualizations & ML pipeline
 ├── requirements.txt                         # Python environment dependencies
 └── README.md                                # Project overview, methodology, and key findings
+```
 
+### ⚙️ Setup & Installation
+To reproduce this analysis locally:
+```bash
+git clone [https://github.com/jelenavasic009-png/dsb_capstone.git](https://github.com/jelenavasic009-png/dsb_capstone.git)
+cd dsb_capstone
+pip install -r requirements.txt
+```
+
+---
 
 ## 📂 Data Source & Quality Audit
-* **Source Dataset:** Historical maritime administration logs tracking issued vessel vignettes (`26,764 rows × 11 original columns`).
+* **Source Dataset:** Historical maritime administration logs tracking issued vessel vignettes from **2021 to 2025** (`26,764 rows × 11 original columns`).
 * **Key Attributes:** Vignette serial numbers, vessel names, vessel lengths (m), purpose of use (`personal` vs. `chartering`), validity timestamps (`Valid from`, `Valid until`), duration tiers (`24h`, `7d`, `1M`, `3M`, `6M`, `1y`), issuing port branches (`Tivat`, `Zelenika`, `Bar`, `Kumbor`, `Kotor`, `Budva`), and financial metrics (`Price excluding tax €`, `Tax €`, `Total price €`).
 * **Data Quality & Cleansing:**
   * Audited missing entries (`6` null vessel names imputed as `'Unknown Vessel'`, `3` null durations imputed as `'Unknown Duration'`) without losing transactional records.
   * Verified zero illogical dates (`Valid until < Valid from`), zero negative/zero prices, and zero invalid vessel lengths.
-  * Standardized `datetime64` fields to extract `Year`, `Month`, `Season`, `Clean_Year`, and a binary `Is_Covid_Period` indicator (`2020–2022`).
+  * Standardized `datetime64` fields to extract `Year`, `Month`, `Season`, `Clean_Year`, and a binary `Is_Covid_Period` indicator (covering `2021–2022` in the dataset).
 
 ---
 
@@ -69,7 +80,8 @@ The entire workflow is documented and reproducible inside [`notebooks/01_EDA_Jel
 | Library | Primary Purpose |
 | :--- | :--- |
 | **Pandas & NumPy** | Data ingestion, cleansing, aggregation, loyalty cross-tabulation, and feature engineering. |
-| **Matplotlib & Seaborn** | Exploratory visualizations, rolling averages, seasonal line plots, and cluster scatter plots. |
+| **Matplotlib & Seaborn** | Exploratory visualizations, rolling averages, seasonal line plots, and static cluster plots. |
+| **Plotly** | Interactive scatter plots and exploratory visualizations. |
 | **Scikit-Learn** | `StandardScaler`, `PCA`, `OneHotEncoder`, `ColumnTransformer`, `LinearRegression`, `Ridge`, `Lasso`, `RandomForestRegressor`, `KMeans`, and `DBSCAN`. |
 | **Prophet** | Automated time-series decomposition and 12-month revenue forecasting. |
 
