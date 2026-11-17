@@ -1,4 +1,4 @@
-# 🚢 Vignette Sales and Vessel Revenue Analysis (`dsb_capstone`)
+# 🛥️ Vignette Sales and Vessel Revenue Analysis (`dsb_capstone`)
 
 > **Data Science Capstone Project** | End-to-End Exploratory Data Analysis, Feature Engineering, Predictive Modeling & Anomaly Detection
 
