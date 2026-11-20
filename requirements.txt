@@ -4,3 +4,7 @@ matplotlib
 seaborn
 scikit-learn
 openpyxl
+plotly
+ipykernel
+nbformat
+prophet
