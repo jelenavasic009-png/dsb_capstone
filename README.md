@@ -25,21 +25,44 @@ By combining thorough **Exploratory Data Analysis (EDA)**, domain-driven **Featu
 ```text
 dsb_capstone/
 ├── data/
-│   └── Baza podataka 5 godina.xlsx          # Raw 5-year maritime vignette dataset (26,764 records)
-├── docs/                                    # Supporting project documentation and reports
+│   ├── raw/Baza podataka 5 godina.xlsx      # Original dataset
+│   └── clean/
+│       ├── clean_data.csv                 # Shared local/Colab modelling input
+│       └── clean_data.pkl                 # Optional local pickle copy
+├── docs/
 ├── notebooks/
-│   └── 01_EDA_JelenaVasic_capstone.ipynb    # Complete end-to-end analysis, visualizations & ML pipeline
-├── requirements.txt                         # Python environment dependencies
-└── README.md                                # Project overview, methodology, and key findings
+│   ├── 01_EDA.ipynb                       # Cleaning, exploration, data export
+│   └── 02_Modelling.ipynb                 # Modelling and anomaly detection
+├── requirements.txt
+└── README.md
 ```
 
 ### ⚙️ Setup & Installation
 To reproduce this analysis locally:
 ```bash
-git clone [https://github.com/jelenavasic009-png/dsb_capstone.git](https://github.com/jelenavasic009-png/dsb_capstone.git)
+git clone https://github.com/jelenavasic009-png/dsb_capstone.git
 cd dsb_capstone
 pip install -r requirements.txt
 ```
+
+### Open the notebooks in Colab
+
+- EDA: [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jelenavasic009-png/dsb_capstone/blob/main/notebooks/01_EDA.ipynb)
+- Modelling: [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jelenavasic009-png/dsb_capstone/blob/main/notebooks/02_Modelling.ipynb)
+
+Each notebook starts with a Markdown image link: the official Colab badge image links to `https://colab.research.google.com/github/<owner>/<repo>/blob/main/notebooks/<filename>.ipynb`. The EDA link was updated after the notebook rename, and the missing modelling badge was added. Render the Markdown cell in VS Code to display the button.
+
+### Reading data locally and in Colab
+
+Both notebooks look for local data first (from the repository root or the `notebooks/` folder), then fall back to a public GitHub raw URL. EDA reads the original Excel file; modelling reads [clean_data.csv](https://raw.githubusercontent.com/jelenavasic009-png/dsb_capstone/main/data/clean/clean_data.csv). The repository and files must be publicly accessible for this unauthenticated fallback.
+
+CSV works across environments without pickle's pandas-version dependencies. The loader explicitly parses `Valid from` and `Valid until` as dates and preserves text identifiers and names, including literal text such as `NA`. Opening a notebook in Colab does not copy the repository's data into its runtime; the URL fallback supplies those files.
+
+- **VS Code:** install `requirements.txt`, select that Python environment as the notebook kernel, and run the notebook. Local data works offline.
+- **Colab:** open a badge and run the cells. If a dependency is missing, install it in a code cell, e.g. `%pip install prophet openpyxl plotly scikit-learn seaborn`.
+- **Refreshing cleaned data:** run EDA, which exports both CSV and pickle into `data/clean/`. Commit and push the refreshed CSV together with these notebook changes to `main` to update what fresh Colab sessions read. The new CSV URL will not work until the file has been pushed.
+- **Colab exports:** files saved in Colab are temporary and do not update GitHub automatically. Download the refreshed CSV and add it to the repository. Modelling in a separate runtime reads the published GitHub copy; in the same runtime it reads the local export.
+
 
 ---
 
@@ -54,7 +77,7 @@ pip install -r requirements.txt
 ---
 
 ## 🔄 End-to-End Analytical & Machine Learning Pipeline
-The entire workflow is documented and reproducible inside [`notebooks/01_EDA_JelenaVasic_capstone.ipynb`](notebooks/01_EDA_JelenaVasic_capstone.ipynb):
+The entire workflow is documented and reproducible inside [`notebooks/01_EDA.ipynb`](notebooks/01_EDA.ipynb):
 
 1. **Data Sourcing, Audit & Cleansing (Steps 1–3):** Loaded raw Excel records, inspected data types (`info()`), computed baseline statistics (`describe()`), imputed missing values, and verified logical integrity.
 2. **Regional Performance & Vessel Loyalty Analysis (Steps 4–4.1):** Evaluated branch-level revenue concentration and tracked repeat customers across `12,326` unique vessels (`4,225` multi-year returning vessels; `356` vessels returning every single year from 2021 to 2025).
@@ -86,4 +109,4 @@ The entire workflow is documented and reproducible inside [`notebooks/01_EDA_Jel
 | **Prophet** | Automated time-series decomposition and 12-month revenue forecasting. |
 
 ---
-*For full code execution, charts, and detailed commentary, open [`notebooks/01_EDA_JelenaVasic_capstone.ipynb`](notebooks/01_EDA_JelenaVasic_capstone.ipynb).*
+*For full code execution, charts, and detailed commentary, open [`notebooks/01_EDA.ipynb`](notebooks/01_EDA.ipynb).*
